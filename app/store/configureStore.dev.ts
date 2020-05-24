@@ -9,7 +9,7 @@ import { counterStateType } from '../reducers/types';
 
 declare global {
   interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: (
+    REDUX_DEVTOOLS_EXTENSION: (
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       obj: Record<string, any>
     ) => Function;
@@ -55,8 +55,8 @@ const configureStore = (initialState?: counterStateType) => {
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
   /* eslint-disable no-underscore-dangle */
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+  const composeEnhancers = window.REDUX_DEVTOOLS_EXTENSION
+    ? window.REDUX_DEVTOOLS_EXTENSION({
         // Options: http://extension.remotedev.io/docs/API/Arguments.html
         actionCreators
       })

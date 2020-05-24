@@ -274,8 +274,10 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@hot-loader/react-dom": "^16.13.0",
+    "@material-ui/core": "^4.10.0",
     "connected-react-router": "^6.8.0",
     "core-js": "^3.6.5",
+    "crypto-js": "^4.0.0",
     "devtron": "^1.4.0",
     "electron-debug": "^3.0.1",
     "electron-log": "^4.0.6",
@@ -305,7 +307,12 @@
   "prettier": {
     "overrides": [
       {
-        "files": [".prettierrc", ".babelrc", ".eslintrc", ".stylelintrc"],
+        "files": [
+          ".prettierrc",
+          ".babelrc",
+          ".eslintrc",
+          ".stylelintrc"
+        ],
         "options": {
           "parser": "json"
         }
@@ -314,10 +321,15 @@
     "singleQuote": true
   },
   "stylelint": {
-    "extends": ["stylelint-config-standard", "stylelint-config-prettier"]
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-config-prettier"
+    ]
   },
   "renovate": {
-    "extends": ["bliss"]
+    "extends": [
+      "bliss"
+    ]
   },
   "husky": {
     "hooks": {
