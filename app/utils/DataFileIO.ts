@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 
 type Content = {
   attrName: string;
@@ -18,16 +17,19 @@ class DataFileIO {
   ];
 
   constructor() {
-    this.path = path.resolve('./');
+    this.path = String(process.env.USERDATA_PATH);
+    if (!fs.existsSync(`${this.path}/vault`)) {
+      fs.mkdirSync(`${this.path}/vault`);
+    }
   }
 
   readInternalFile = () => {
     try {
       return JSON.parse(
-        fs.readFileSync(`${this.path}/vault/internalData.json`)
+        fs.readFileSync(`${this.path}/vault/internalData.json`).toString()
       );
     } catch (e) {
-      return 'error';
+      return null;
     }
   };
 
@@ -36,6 +38,9 @@ class DataFileIO {
     if (this.attrsWhiteList.includes(attrName)) {
       // Authorized attributes
       const readResult = this.readInternalFile();
+      if (readResult === null) {
+        return -1;
+      }
       readResult[attrName] = attrValue;
       fs.writeFileSync(
         `${this.path}/vault/internalData.json`,

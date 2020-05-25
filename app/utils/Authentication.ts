@@ -51,6 +51,37 @@ class Authentication {
       return 'Unable to encrypt message';
     }
   };
+
+  createCredential = (username: string, password: string) => {
+    // Must remove all data and recreate file;
+    dataFileIO.eraseData();
+    // Saves username with salt
+    const usernameSalt = `usernameSalt${new Date()}`;
+    // Writes hashed username
+    dataFileIO.writeJSONToInternalFile({
+      attrName: 'usernameHashed',
+      attrValue: this.hash(username + usernameSalt)
+    });
+    // Writes username salt
+    dataFileIO.writeJSONToInternalFile({
+      attrName: 'usernameSalt',
+      attrValue: usernameSalt
+    });
+
+    // Creates password salt
+    const passwordSalt = `passwordSalt${new Date()}`;
+    // Writes hashed password
+    dataFileIO.writeJSONToInternalFile({
+      attrName: 'passwordHashed',
+      attrValue: this.hash(password + passwordSalt)
+    });
+    // Writes password salt
+    dataFileIO.writeJSONToInternalFile({
+      attrName: 'passwordSalt',
+      attrValue: passwordSalt
+    });
+    return true;
+  };
 }
 
 const authentication = new Authentication();

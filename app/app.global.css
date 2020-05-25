@@ -6,7 +6,7 @@
 
 body {
   position: relative;
-  color: white;
+  color: black;
   height: 100vh;
   background-color: white;
   /* background-image: linear-gradient(
@@ -18,30 +18,30 @@ body {
   overflow-y: hidden;
 }
 
-h2 {
+/* h2 {
   margin: 0;
   font-size: 2.25rem;
   font-weight: bold;
   letter-spacing: -0.025em;
-  color: #fff;
-}
+  color: rgb(28, 20, 20);
+} */
 
-p {
+/* p {
   font-size: 24px;
-}
+} */
 
-li {
+/* li {
   list-style: none;
-}
-
+} */
+/* 
 a {
   color: white;
   opacity: 0.75;
   text-decoration: none;
-}
+} */
 
-a:hover {
+/* a:hover {
   opacity: 1;
   text-decoration: none;
   cursor: pointer;
-}
+} */
