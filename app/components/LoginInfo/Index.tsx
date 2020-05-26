@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import styles from './LoginInfo.css';
 
 type updateFunctionType = (arg0: string) => void;
@@ -13,6 +13,18 @@ export default function LoginInfo({ obtainData }: Props) {
   return (
     <div className={styles.container} data-tid="container">
       <h5>Login Info</h5>
+      <TextField
+        label="Username"
+        onChange={event => obtainData(event.target.value)}
+      />
+      <TextField
+        label="Password"
+        onChange={event => obtainData(event.target.value)}
+      />
+      <TextField
+        label="Url"
+        onChange={event => obtainData(event.target.value)}
+      />
       <Button
         color="primary"
         variant="outlined"

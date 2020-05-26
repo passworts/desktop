@@ -8,10 +8,25 @@ type Props = {
 };
 
 export default function CreditCard({ obtainData }: Props) {
+  // const [mode, setMode] = useState('view');
   const data = 'name_str';
   return (
     <div className={styles.container} data-tid="container">
       <h5>Cardholder Name</h5>
+      <Button
+        color="primary"
+        variant="outlined"
+        // onClick={() => setMode('edit')}
+      >
+        Edit
+      </Button>
+      <Button
+        color="primary"
+        variant="outlined"
+        // onClick={() => setMode('view')}
+      >
+        Save
+      </Button>
       <Button
         color="primary"
         variant="outlined"

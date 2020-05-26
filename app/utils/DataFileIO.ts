@@ -8,6 +8,8 @@ type Content = {
 class DataFileIO {
   private path: string;
 
+  private internalDataPath: string;
+
   private attrsWhiteList = [
     'usernameHashed',
     'passwordHashed',
@@ -17,17 +19,16 @@ class DataFileIO {
   ];
 
   constructor() {
-    this.path = String(process.env.USERDATA_PATH);
-    if (!fs.existsSync(`${this.path}/vault`)) {
-      fs.mkdirSync(`${this.path}/vault`);
+    this.path = `${process.env.USERDATA_PATH}`;
+    if (!fs.existsSync(this.path)) {
+      fs.mkdirSync(`${this.path}`);
     }
+    this.internalDataPath = `${process.env.USERDATA_PATH}/internalData.json`;
   }
 
   readInternalFile = () => {
     try {
-      return JSON.parse(
-        fs.readFileSync(`${this.path}/vault/internalData.json`).toString()
-      );
+      return JSON.parse(fs.readFileSync(this.internalDataPath).toString());
     } catch (e) {
       return null;
     }
@@ -43,7 +44,7 @@ class DataFileIO {
       }
       readResult[attrName] = attrValue;
       fs.writeFileSync(
-        `${this.path}/vault/internalData.json`,
+        this.internalDataPath,
         JSON.stringify(readResult),
         'utf-8'
       );
@@ -53,7 +54,7 @@ class DataFileIO {
   };
 
   eraseData = () => {
-    fs.writeFileSync(`${this.path}/vault/internalData.json`, '{}', 'utf-8');
+    fs.writeFileSync(this.internalDataPath, '{}', 'utf-8');
   };
 }
 

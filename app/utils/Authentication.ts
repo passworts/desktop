@@ -4,16 +4,35 @@ import dataFileIO from './DataFileIO';
 class Authentication {
   private secretKey: string;
 
+  private verified: boolean;
+
+  private internalData: object;
+
   constructor() {
     this.secretKey = '';
+    this.verified = false;
+    this.internalData = {};
   }
+
+  getInternalData = () => {
+    return this.internalData;
+  };
+
+  setInternalData = (internalData: object) => {
+    this.internalData = internalData;
+  };
+
+  getVerified = () => {
+    return this.verified;
+  };
+
+  setVerified = (verified: boolean) => {
+    this.verified = verified;
+  };
 
   verifyCredential = (username: string, password: string) => {
     const {
-      usernameHashed,
-      usernameSalt,
-      passwordHashed,
-      passwordSalt
+      auth: { usernameHashed, usernameSalt, passwordHashed, passwordSalt }
     } = dataFileIO.readInternalFile();
     try {
       if (
@@ -21,6 +40,9 @@ class Authentication {
         this.hash(password + passwordSalt) === passwordHashed
       ) {
         this.secretKey = this.hash(passwordSalt + password + username);
+        this.setVerified(true);
+        // Decrypt all data in internalData.json
+        this.setInternalData(this.decryptData());
         return true;
       }
       return false;
@@ -28,6 +50,25 @@ class Authentication {
       // Unable to verify credential
       return false;
     }
+  };
+
+  decryptData = () => {
+    if (this.getVerified()) {
+      const result = dataFileIO.readInternalFile();
+      if (result) {
+        // const {
+        //   data: {
+        //     dataType,
+        //     dataMap
+        //   }
+        // } = result;
+        const { records } = result;
+        return records;
+      }
+      // Error
+      return null;
+    }
+    return null;
   };
 
   hash = (hashingMessage: string) => {

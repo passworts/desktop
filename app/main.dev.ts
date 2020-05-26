@@ -68,8 +68,15 @@ const createWindow = async () => {
     //       preload: path.join(__dirname, 'dist/renderer.prod.js')
     //     }
   });
-
-  process.env.USERDATA_PATH = app.getPath('userData');
+  // TODO: Should apply it to the file system writing and reading
+  if (
+    process.env.NODE_ENV === 'development' ||
+    process.env.DEBUG_PROD === 'true'
+  ) {
+    process.env.USERDATA_PATH = `${__dirname}/vault/`;
+  } else {
+    process.env.USERDATA_PATH = `${app.getPath('userData')}/vault/`;
+  }
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
