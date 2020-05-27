@@ -46,7 +46,7 @@ export default function PassWort() {
         .map((r: any) => {
           const dataRep = r.dataToJsonObject();
           const { id } = dataRep;
-          return <Record key={id} dataRep={r} operations={operations} />;
+          return <Record key={id} dataRepInput={r} operations={operations} />;
         })}
       <div>
         <Button

@@ -54,9 +54,10 @@ class DataService implements IDataService {
   };
 
   addRecord = (record: any) => {
+    const tmpR = record;
     // Should init a new id for rec
-    record.id = shortid.generate();
-    this.records = [...this.records, record];
+    tmpR.id = shortid.generate();
+    this.records = [...this.records, tmpR];
     this.persistToFile();
   };
 

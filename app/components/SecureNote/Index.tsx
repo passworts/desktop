@@ -4,10 +4,11 @@ import styles from './SecureNote.css';
 
 type Props = {
   mode: string;
-  dataRep: any;
+  dataRepInput: any;
 };
 
-export default function SecureNote({ dataRep, mode }: Props) {
+export default function SecureNote({ dataRepInput, mode }: Props) {
+  const dataRep = dataRepInput;
   return (
     <div className={styles.container} data-tid="container">
       <TextField

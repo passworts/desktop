@@ -9,14 +9,15 @@ import SecureNote from '../SecureNote/Index';
 
 // type updateFunctionType = (arg0: string) => void;
 type Props = {
-  dataRep: any;
+  dataRepInput: any;
   operations: any;
 };
 
 export default function Record({
-  dataRep,
+  dataRepInput,
   operations: { deleteData, editData }
 }: Props) {
+  const dataRep = dataRepInput;
   const [mode, setMode] = useState('view');
   const {
     type
@@ -25,11 +26,11 @@ export default function Record({
   const chooseType = () => {
     switch (type) {
       case Names.CREDIT_CARD:
-        return <CreditCard dataRep={dataRep} mode={mode} />;
+        return <CreditCard dataRepInput={dataRep} mode={mode} />;
       case Names.LOGIN_INFO:
-        return <LoginInfo dataRep={dataRep} mode={mode} />;
+        return <LoginInfo dataRepInput={dataRep} mode={mode} />;
       case Names.SECURE_NOTE:
-        return <SecureNote dataRep={dataRep} mode={mode} />;
+        return <SecureNote dataRepInput={dataRep} mode={mode} />;
       default:
         return <BlankCard />;
     }

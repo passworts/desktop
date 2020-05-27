@@ -4,10 +4,11 @@ import styles from './CreditCard.css';
 
 type Props = {
   mode: string;
-  dataRep: any;
+  dataRepInput: any;
 };
 
-export default function CreditCard({ dataRep, mode }: Props) {
+export default function CreditCard({ dataRepInput, mode }: Props) {
+  const dataRep = dataRepInput;
   return (
     <div className={styles.container} data-tid="container">
       <TextField

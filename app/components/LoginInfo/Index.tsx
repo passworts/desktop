@@ -4,10 +4,11 @@ import styles from './LoginInfo.css';
 
 type Props = {
   mode: string;
-  dataRep: any;
+  dataRepInput: any;
 };
 
-export default function LoginInfo({ dataRep, mode }: Props) {
+export default function LoginInfo({ dataRepInput, mode }: Props) {
+  const dataRep = dataRepInput;
   return (
     <div className={styles.container} data-tid="container">
       <TextField
