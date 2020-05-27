@@ -1,27 +1,27 @@
 import IBaseData from './IBaseData';
 
 export default class CardData implements IBaseData {
-  private id = '';
+  id = '';
 
-  private type = '';
+  type = '1';
 
-  private name = '';
+  name = '';
 
-  private favorite = false;
+  favorite = '';
 
-  private note = '';
+  note = '';
 
-  private cardHolderName = '';
+  cardHolderName = '';
 
-  private cardNumber = '';
+  cardNumber = '';
 
-  private brand = '';
+  brand = '';
 
-  private expMonth = '';
+  expMonth = '';
 
-  private expYear = '';
+  expYear = '';
 
-  private securityCode = '';
+  securityCode = '';
 
   constructor(jobj: any) {
     if (jobj) {
