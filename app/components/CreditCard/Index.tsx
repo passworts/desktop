@@ -1,39 +1,63 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import styles from './CreditCard.css';
 
-type updateFunctionType = (arg0: string) => void;
 type Props = {
-  obtainData: updateFunctionType;
+  mode: string;
+  dataRep: any;
 };
 
-export default function CreditCard({ obtainData }: Props) {
-  // const [mode, setMode] = useState('view');
-  const data = 'name_str';
+export default function CreditCard({ dataRep, mode }: Props) {
   return (
     <div className={styles.container} data-tid="container">
-      <h5>Cardholder Name</h5>
-      <Button
-        color="primary"
-        variant="outlined"
-        // onClick={() => setMode('edit')}
-      >
-        Edit
-      </Button>
-      <Button
-        color="primary"
-        variant="outlined"
-        // onClick={() => setMode('view')}
-      >
-        Save
-      </Button>
-      <Button
-        color="primary"
-        variant="outlined"
-        onClick={() => obtainData(data)}
-      >
-        Save Data
-      </Button>
+      <TextField
+        label="CardHolder Name"
+        defaultValue={dataRep.cardHolderName}
+        disabled={mode === 'view'}
+        onChange={(event: any) => {
+          dataRep.cardHolderName = event.target.value;
+        }}
+      />
+      <TextField
+        label="Brand"
+        defaultValue={dataRep.brand}
+        disabled={mode === 'view'}
+        onChange={(event: any) => {
+          dataRep.brand = event.target.value;
+        }}
+      />
+      <TextField
+        label="Card Number"
+        defaultValue={dataRep.cardNumber}
+        disabled={mode === 'view'}
+        onChange={(event: any) => {
+          dataRep.cardNumber = event.target.value;
+        }}
+      />
+      <TextField
+        label="Security Code"
+        defaultValue={dataRep.securityCode}
+        disabled={mode === 'view'}
+        onChange={(event: any) => {
+          dataRep.securityCode = event.target.value;
+        }}
+      />
+      <TextField
+        label="Expiry Month"
+        defaultValue={dataRep.expMonth}
+        disabled={mode === 'view'}
+        onChange={(event: any) => {
+          dataRep.expMonth = event.target.value;
+        }}
+      />
+      <TextField
+        label="Expiry Year"
+        defaultValue={dataRep.expYear}
+        disabled={mode === 'view'}
+        onChange={(event: any) => {
+          dataRep.expYear = event.target.value;
+        }}
+      />
     </div>
   );
 }

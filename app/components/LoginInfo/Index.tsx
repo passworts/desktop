@@ -1,37 +1,39 @@
 import React from 'react';
-import { Button, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import styles from './LoginInfo.css';
 
-type updateFunctionType = (arg0: string) => void;
 type Props = {
-  obtainData: updateFunctionType;
+  mode: string;
+  dataRep: any;
 };
 
-export default function LoginInfo({ obtainData }: Props) {
-  // TODO: login info data goes here
-  const data = 'name_str';
+export default function LoginInfo({ dataRep, mode }: Props) {
   return (
     <div className={styles.container} data-tid="container">
-      <h5>Login Info</h5>
       <TextField
         label="Username"
-        onChange={event => obtainData(event.target.value)}
+        defaultValue={dataRep.username}
+        disabled={mode === 'view'}
+        onChange={(event: any) => {
+          dataRep.username = event.target.value;
+        }}
       />
       <TextField
         label="Password"
-        onChange={event => obtainData(event.target.value)}
+        defaultValue={dataRep.password}
+        disabled={mode === 'view'}
+        onChange={(event: any) => {
+          dataRep.password = event.target.value;
+        }}
       />
       <TextField
         label="Url"
-        onChange={event => obtainData(event.target.value)}
+        defaultValue={dataRep.url}
+        disabled={mode === 'view'}
+        onChange={(event: any) => {
+          dataRep.url = event.target.value;
+        }}
       />
-      <Button
-        color="primary"
-        variant="outlined"
-        onClick={() => obtainData(data)}
-      >
-        Save Data
-      </Button>
     </div>
   );
 }

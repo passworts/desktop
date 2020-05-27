@@ -1,24 +1,23 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import styles from './SecureNote.css';
 
-type updateFunctionType = (arg0: string) => void;
 type Props = {
-  obtainData: updateFunctionType;
+  mode: string;
+  dataRep: any;
 };
 
-export default function SecureNote({ obtainData }: Props) {
-  const data = 'name_str';
+export default function SecureNote({ dataRep, mode }: Props) {
   return (
     <div className={styles.container} data-tid="container">
-      <h5>Secure Note</h5>
-      <Button
-        color="primary"
-        variant="outlined"
-        onClick={() => obtainData(data)}
-      >
-        Save Data
-      </Button>
+      <TextField
+        label="Content"
+        defaultValue={dataRep.content}
+        disabled={mode === 'view'}
+        onChange={(event: any) => {
+          dataRep.content = event.target.value;
+        }}
+      />
     </div>
   );
 }
