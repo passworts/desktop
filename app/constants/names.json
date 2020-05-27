@@ -1,6 +1,7 @@
 {
-  "LOGIN_INFO": "Login Info",
-  "CREDIT_CARD": "Credit Card",
-  "IDENTITY": "Identity",
-  "SECURE_NOTE": "Secure Note"
+  "LOGIN_INFO": "2",
+  "CREDIT_CARD": "1",
+  "IDENTITY": "3",
+  "SECURE_NOTE": "4",
+  "ALL": "0"
 }
