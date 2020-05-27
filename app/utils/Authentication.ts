@@ -1,5 +1,6 @@
-import CryptoJS from 'crypto-js';
 import dataFileIO from './DataFileIO';
+
+const CryptoJS = require('crypto-js');
 
 class Authentication {
   private secretKey: string;
