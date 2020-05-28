@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import CreditCard from '../CreditCard/Index';
 import styles from './Record.css';
 import Names from '../../constants/names.json';
@@ -20,17 +20,18 @@ export default function Record({
   const dataRep = dataRepInput;
   const [mode, setMode] = useState('view');
   const {
-    type
+    type,
+    id
     // Will have history in the future
   } = dataRep;
   const chooseType = () => {
     switch (type) {
       case Names.CREDIT_CARD:
-        return <CreditCard dataRepInput={dataRep} mode={mode} />;
+        return <CreditCard dataRepInput={dataRep} mode={mode} key={id} />;
       case Names.LOGIN_INFO:
-        return <LoginInfo dataRepInput={dataRep} mode={mode} />;
+        return <LoginInfo dataRepInput={dataRep} mode={mode} key={id} />;
       case Names.SECURE_NOTE:
-        return <SecureNote dataRepInput={dataRep} mode={mode} />;
+        return <SecureNote dataRepInput={dataRep} mode={mode} key={id} />;
       default:
         return <BlankCard />;
     }
@@ -38,29 +39,6 @@ export default function Record({
 
   return (
     <div className={styles.container} data-tid="container">
-      <TextField
-        label="Name"
-        defaultValue={dataRep.name}
-        disabled={mode === 'view'}
-        onChange={(event: any) => {
-          dataRep.name = event.target.value;
-        }}
-      />
-      {/* <Checkbox
-        defaultChecked={dataRep.favorite}
-        color="primary"
-        disabled={mode === 'view' ? true : false}
-        inputProps={{ 'aria-label': 'secondary checkbox' }}
-        onChange={(event: any) => { dataRep.favorite = event.target.checked }}
-      /> */}
-      <TextField
-        label="Note"
-        defaultValue={dataRep.note}
-        disabled={mode === 'view'}
-        onChange={(event: any) => {
-          dataRep.note = event.target.value;
-        }}
-      />
       {chooseType()}
       <Button
         color="secondary"
