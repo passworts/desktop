@@ -10,13 +10,25 @@ class DataService implements IDataService {
   records: any;
 
   constructor() {
-    this.records = this.getRecordsFromFile();
+    try {
+      this.records = this.getRecordsFromFile();
+    } catch (e) {
+      DataFileIO.initializeData();
+      this.records = this.getRecordsFromFile();
+    }
   }
 
   persistToFile = () => {
-    // TODO: Writes records to file
-    // console.log('Persisting');
-    // console.log(this.records);
+    this.records.map((r: any) => {
+      return r.dataToJsonObject();
+    });
+    DataFileIO.writeJSONToInternalFile({
+      label: 'records',
+      attrName: null,
+      attrValue: this.records.map((r: any) => {
+        return r.dataToJsonObject();
+      })
+    });
   };
 
   getRecords = () => {

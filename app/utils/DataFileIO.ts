@@ -1,8 +1,9 @@
 import fs from 'fs';
 
 type Content = {
-  attrName: string;
-  attrValue: string;
+  label: string;
+  attrName: any;
+  attrValue: any;
 };
 
 class DataFileIO {
@@ -35,14 +36,29 @@ class DataFileIO {
   };
 
   writeJSONToInternalFile = (content: Content) => {
-    const { attrName, attrValue } = content;
-    if (this.attrsWhiteList.includes(attrName)) {
-      // Authorized attributes
+    const { label, attrName, attrValue } = content;
+    if (label === 'auth') {
+      if (this.attrsWhiteList.includes(attrName)) {
+        // Authorized attributes
+        const readResult = this.readInternalFile();
+        if (readResult === null) {
+          return -1;
+        }
+        readResult.auth[attrName] = attrValue;
+        fs.writeFileSync(
+          this.internalDataPath,
+          JSON.stringify(readResult),
+          'utf-8'
+        );
+        return 0;
+      }
+    }
+    if (label === 'records') {
       const readResult = this.readInternalFile();
       if (readResult === null) {
         return -1;
       }
-      readResult[attrName] = attrValue;
+      readResult.records = attrValue;
       fs.writeFileSync(
         this.internalDataPath,
         JSON.stringify(readResult),
@@ -50,11 +66,17 @@ class DataFileIO {
       );
       return 0;
     }
+
     return -1;
   };
 
-  eraseData = () => {
-    fs.writeFileSync(this.internalDataPath, '{}', 'utf-8');
+  initializeData = () => {
+    // Must remove all data and recreate file;
+    fs.writeFileSync(
+      this.internalDataPath,
+      '{"auth":{},"records":[]}',
+      'utf-8'
+    );
   };
 }
 

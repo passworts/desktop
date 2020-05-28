@@ -95,17 +95,18 @@ class Authentication {
   };
 
   createCredential = (username: string, password: string) => {
-    // Must remove all data and recreate file;
-    dataFileIO.eraseData();
+    dataFileIO.initializeData();
     // Saves username with salt
     const usernameSalt = `usernameSalt${new Date()}`;
     // Writes hashed username
     dataFileIO.writeJSONToInternalFile({
+      label: 'auth',
       attrName: 'usernameHashed',
       attrValue: this.hash(username + usernameSalt)
     });
     // Writes username salt
     dataFileIO.writeJSONToInternalFile({
+      label: 'auth',
       attrName: 'usernameSalt',
       attrValue: usernameSalt
     });
@@ -114,11 +115,13 @@ class Authentication {
     const passwordSalt = `passwordSalt${new Date()}`;
     // Writes hashed password
     dataFileIO.writeJSONToInternalFile({
+      label: 'auth',
       attrName: 'passwordHashed',
       attrValue: this.hash(password + passwordSalt)
     });
     // Writes password salt
     dataFileIO.writeJSONToInternalFile({
+      label: 'auth',
       attrName: 'passwordSalt',
       attrValue: passwordSalt
     });
