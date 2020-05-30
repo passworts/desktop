@@ -52,8 +52,8 @@
     ]
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.develar.ElectronReact",
+    "productName": "Passworts",
+    "appId": "org.develar.Passworts",
     "files": [
       "dist/",
       "node_modules/",
