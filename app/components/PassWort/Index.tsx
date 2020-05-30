@@ -1,18 +1,8 @@
 import React, { useState } from 'react';
-import {
-  List,
-  ListItem,
-  ListItemText,
-  makeStyles,
-  ListItemIcon
-} from '@material-ui/core';
-import InboxIcon from '@material-ui/icons/Inbox';
-import CreditCardIcon from '@material-ui/icons/CreditCard';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import NotesIcon from '@material-ui/icons/Notes';
-import AddIcon from '@material-ui/icons/Add';
+import { List, ListItem, ListItemText, makeStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import TypeIcon from '../TypeIcon/Index';
 import Record from '../Record/Index';
 import Names from '../../constants/names.json';
 import dataService from '../../services/DataService';
@@ -76,10 +66,8 @@ export default function PassWort() {
                 setRecordType(Names.ALL);
               }}
             >
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary="All" />
+              <TypeIcon type={Names.ALL} />
+              <ListItemText primary="All Records" />
             </ListItem>
             <ListItem
               button
@@ -89,9 +77,7 @@ export default function PassWort() {
                 setRecordType(Names.CREDIT_CARD);
               }}
             >
-              <ListItemIcon>
-                <CreditCardIcon />
-              </ListItemIcon>
+              <TypeIcon type={Names.CREDIT_CARD} />
               <ListItemText primary="Credit Card" />
             </ListItem>
             <ListItem
@@ -102,9 +88,7 @@ export default function PassWort() {
                 setRecordType(Names.LOGIN_INFO);
               }}
             >
-              <ListItemIcon>
-                <LockOpenIcon />
-              </ListItemIcon>
+              <TypeIcon type={Names.LOGIN_INFO} />
               <ListItemText primary="Login Info" />
             </ListItem>
             <ListItem
@@ -115,9 +99,7 @@ export default function PassWort() {
                 setRecordType(Names.SECURE_NOTE);
               }}
             >
-              <ListItemIcon>
-                <NotesIcon />
-              </ListItemIcon>
+              <TypeIcon type={Names.SECURE_NOTE} />
               <ListItemText primary="Secure Note" />
             </ListItem>
             <ListItem
@@ -125,9 +107,7 @@ export default function PassWort() {
               disabled={recordType === Names.ALL}
               onClick={() => addNewRecord()}
             >
-              <ListItemIcon>
-                <AddIcon />
-              </ListItemIcon>
+              <TypeIcon type={Names.ALL} />
               <ListItemText primary="Add" />
             </ListItem>
           </List>
@@ -144,7 +124,7 @@ export default function PassWort() {
               })
               .map((r: any) => {
                 const dataRep = r.dataToJsonObject();
-                const { id } = dataRep;
+                const { id, type } = dataRep;
                 return (
                   <ListItem
                     button
@@ -153,6 +133,7 @@ export default function PassWort() {
                       setSelectedRecord(r);
                     }}
                   >
+                    <TypeIcon type={type} />
                     <ListItemText primary={id} />
                   </ListItem>
                 );
