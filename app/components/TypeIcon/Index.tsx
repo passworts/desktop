@@ -5,6 +5,7 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import NotesIcon from '@material-ui/icons/Notes';
 import AddIcon from '@material-ui/icons/Add';
+import Names from '../../constants/names.json';
 
 type Props = {
   type: string;
@@ -13,14 +14,16 @@ type Props = {
 export default function TypeIcon({ type }: Props) {
   const selectIcon = (iconType: string) => {
     switch (iconType) {
-      case '0':
+      case Names.ALL:
         return <AppsIcon />;
-      case '1':
+      case Names.CREDIT_CARD:
         return <CreditCardIcon />;
-      case '2':
+      case Names.LOGIN_INFO:
         return <LockOpenIcon />;
-      case '4':
+      case Names.SECURE_NOTE:
         return <NotesIcon />;
+      case Names.ADD_BUTTON:
+        return <AddIcon />;
       default:
         return <AddIcon />;
     }

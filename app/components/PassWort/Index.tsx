@@ -104,10 +104,11 @@ export default function PassWort() {
             </ListItem>
             <ListItem
               button
+              key={5}
               disabled={recordType === Names.ALL}
               onClick={() => addNewRecord()}
             >
-              <TypeIcon type={Names.ALL} />
+              <TypeIcon type={Names.ADD_BUTTON} />
               <ListItemText primary="Add" />
             </ListItem>
           </List>

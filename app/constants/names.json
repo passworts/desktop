@@ -3,5 +3,6 @@
   "CREDIT_CARD": "1",
   "IDENTITY": "3",
   "SECURE_NOTE": "4",
-  "ALL": "0"
+  "ALL": "0",
+  "ADD_BUTTON": "-1"
 }
