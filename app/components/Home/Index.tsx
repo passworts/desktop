@@ -52,6 +52,7 @@ export default function Home() {
       />
       <TextField
         label="Password"
+        type="password"
         onChange={event => setPassword(event.target.value)}
       />
       <Button

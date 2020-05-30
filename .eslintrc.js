@@ -4,7 +4,8 @@ module.exports = {
     // A temporary hack related to IDE not resolving correct package.json
     'import/no-extraneous-dependencies': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
-    '@typescript-eslint/no-explicit-any': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    'react/jsx-wrap-multilines': 'off'
   },
   settings: {
     'import/resolver': {

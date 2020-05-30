@@ -66,6 +66,7 @@ export default function CreditCard({ dataRepInput, mode }: Props) {
         label="Security Code"
         defaultValue={dataRep.securityCode}
         disabled={mode === 'view'}
+        type="password"
         onChange={(event: any) => {
           dataRep.securityCode = event.target.value;
         }}

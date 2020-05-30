@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { TextField } from '@material-ui/core';
+import {
+  TextField,
+  Input,
+  InputAdornment,
+  IconButton
+} from '@material-ui/core';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import styles from './LoginInfo.css';
 
 type Props = {
@@ -11,6 +18,14 @@ export default function LoginInfo({ dataRepInput, mode }: Props) {
   const dataRep = dataRepInput;
   const [name, setName] = useState(dataRep.name);
   const [note, setNote] = useState(dataRep.note);
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event: any) => {
+    event.preventDefault();
+  };
   return (
     <div className={styles.container} data-tid="container">
       <TextField
@@ -46,13 +61,25 @@ export default function LoginInfo({ dataRepInput, mode }: Props) {
           dataRep.username = event.target.value;
         }}
       />
-      <TextField
-        label="Password"
+      <Input
+        id="standard-adornment-password"
+        type={showPassword ? 'text' : 'password'}
         defaultValue={dataRep.password}
         disabled={mode === 'view'}
         onChange={(event: any) => {
           dataRep.password = event.target.value;
         }}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+            >
+              {showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+          </InputAdornment>
+        }
       />
       <TextField
         label="Url"
