@@ -83,54 +83,54 @@ export default function Home() {
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            onChange={event => setUsername(event.target.value)}
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Username"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            onChange={event => setPassword(event.target.value)}
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          {/* <FormControlLabel
+        {/* <form className={classes.form} noValidate> */}
+        <TextField
+          variant="outlined"
+          onChange={event => setUsername(event.target.value)}
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Username"
+          name="email"
+          autoComplete="email"
+          autoFocus
+        />
+        <TextField
+          variant="outlined"
+          onChange={event => setPassword(event.target.value)}
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Password"
+          type="password"
+          id="password"
+          autoComplete="current-password"
+        />
+        {/* <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
         /> */}
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={() => dealWithCredential('signIn')}
-          >
-            Sign In
-          </Button>
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={() => dealWithCredential('signUp')}
-          >
-            Sign Up
-          </Button>
-          {/* <Grid container>
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={() => dealWithCredential('signIn')}
+        >
+          Sign In
+        </Button>
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={() => dealWithCredential('signUp')}
+        >
+          Sign Up
+        </Button>
+        {/* <Grid container>
           <Grid item xs>
             <Link href="#" variant="body2">
               Forgot password?
@@ -142,7 +142,7 @@ export default function Home() {
             </Link>
           </Grid>
         </Grid> */}
-        </form>
+        {/* </form> */}
       </div>
       <Box mt={8}>
         <Footer />
