@@ -7,19 +7,16 @@ type Content = {
 };
 
 class Authentication {
-  private secretKey: string;
+  private secretKey: any;
 
   private verified: boolean;
 
   private internalData: object;
 
-  private iv: string;
-
   constructor() {
-    this.secretKey = '';
+    this.secretKey = Buffer.alloc(16, 0);
     this.verified = false;
     this.internalData = {};
-    this.iv = '';
   }
 
   getInternalData = () => {
@@ -43,16 +40,15 @@ class Authentication {
       usernameHashed,
       usernameSalt,
       passwordHashed,
-      passwordSalt,
-      iv
+      passwordSalt
     } = dataFileIO.readAuthData();
     try {
       if (
         this.hash(username + usernameSalt) === usernameHashed &&
         this.hash(password + passwordSalt) === passwordHashed
       ) {
-        this.secretKey = this.hash(passwordSalt + password + username);
-        this.iv = iv;
+        // this.secretKey = this.hash(passwordSalt + password + username);
+        this.secretKey = crypto.scryptSync(password, passwordSalt, 24);
         this.setVerified(true);
         // Decrypt all data in internalData.json
         this.setInternalData(this.readRecordsData());
@@ -73,22 +69,16 @@ class Authentication {
   };
 
   decrypt = (encryptedMessage: string) => {
-    const decipher = crypto.createDecipheriv(
-      'aes-256-ctr',
-      this.secretKey,
-      this.iv
-    );
+    const iv = Buffer.alloc(16, 0);
+    const decipher = crypto.createDecipheriv('aes-192-cbc', this.secretKey, iv);
     let dec = decipher.update(encryptedMessage, 'hex', 'utf8');
     dec += decipher.final('utf8');
     return dec;
   };
 
   encrypt = (plainMessage: string) => {
-    const cipher = crypto.createCipheriv(
-      'aes-256-ctr',
-      this.secretKey,
-      this.iv
-    );
+    const iv = Buffer.alloc(16, 0);
+    const cipher = crypto.createCipheriv('aes-192-cbc', this.secretKey, iv);
     let crypted = cipher.update(plainMessage, 'utf8', 'hex');
     crypted += cipher.final('hex');
     return crypted;
@@ -122,10 +112,11 @@ class Authentication {
       attrValue: passwordSalt
     });
 
-    dataFileIO.writeAuthData({
-      attrName: 'iv',
-      attrValue: `${new Date()}.-iv`
-    });
+    // dataFileIO.writeAuthData({
+    //   attrName: 'iv',
+    //   attrValue: `${new Date()}.-iv`
+    // });
+    this.secretKey = crypto.scryptSync(password, passwordSalt, 24);
     return true;
   };
 
@@ -146,7 +137,11 @@ class Authentication {
     if (encryptedRecordsData === '') {
       return [];
     }
-    return JSON.parse(this.decrypt(encryptedRecordsData));
+    try {
+      return JSON.parse(this.decrypt(encryptedRecordsData));
+    } catch (e) {
+      return [];
+    }
   };
 }
 

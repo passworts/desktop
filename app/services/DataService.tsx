@@ -10,13 +10,12 @@ class DataService implements IDataService {
   records: any;
 
   constructor() {
-    try {
-      this.records = this.getRecordsFromFile();
-    } catch (e) {
-      Authentication.initializeData();
-      this.records = this.getRecordsFromFile();
-    }
+    this.records = this.getRecordsFromFile();
   }
+
+  refreshRecords = () => {
+    this.records = this.getRecordsFromFile();
+  };
 
   persistToFile = () => {
     this.records.map((r: any) => {

@@ -8,6 +8,7 @@ import Names from '../../constants/names.json';
 import dataService from '../../services/DataService';
 
 export default function PassWort() {
+  dataService.refreshRecords();
   const readRecords = dataService.getRecords();
   const [recordType, setRecordType] = useState<string>(Names.ALL);
   const [records, setRecords] = useState<Array<any>>(readRecords);
