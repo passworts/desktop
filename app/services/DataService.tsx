@@ -1,5 +1,5 @@
 import IDataService from './IDataService';
-import DataFileIO from '../utils/DataFileIO';
+import Authentication from '../utils/Authentication';
 import CardDataFactory from '../models/factory/CardDataFactory';
 import LoginInfoDataFactory from '../models/factory/LoginInfoDataFactory';
 import SecureNoteDataFactory from '../models/factory/SecureNoteDataFactory';
@@ -13,7 +13,7 @@ class DataService implements IDataService {
     try {
       this.records = this.getRecordsFromFile();
     } catch (e) {
-      DataFileIO.initializeData();
+      Authentication.initializeData();
       this.records = this.getRecordsFromFile();
     }
   }
@@ -22,8 +22,7 @@ class DataService implements IDataService {
     this.records.map((r: any) => {
       return r.dataToJsonObject();
     });
-    DataFileIO.writeJSONToInternalFile({
-      label: 'records',
+    Authentication.writeRecordsData({
       attrName: null,
       attrValue: this.records.map((r: any) => {
         return r.dataToJsonObject();
@@ -57,7 +56,7 @@ class DataService implements IDataService {
   };
 
   getRecordsFromFile = () => {
-    const { records } = DataFileIO.readInternalFile();
+    const records = Authentication.readRecordsData();
     const parsedRecordObjects = records.map((r: any) => {
       const factory = this.parseJsonToObject(r);
       return factory.createData();

@@ -1,7 +1,6 @@
 import fs from 'fs';
 
 type Content = {
-  label: string;
   attrName: any;
   attrValue: any;
 };
@@ -16,7 +15,8 @@ class DataFileIO {
     'passwordHashed',
     'usernameSalt',
     'passwordSalt',
-    'history'
+    'history',
+    'iv'
   ];
 
   constructor() {
@@ -27,7 +27,18 @@ class DataFileIO {
     this.internalDataPath = `${process.env.USERDATA_PATH}/internalData.json`;
   }
 
-  readInternalFile = () => {
+  readAuthData = () => {
+    try {
+      const { auth } = JSON.parse(
+        fs.readFileSync(this.internalDataPath).toString()
+      );
+      return auth;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  readCompleteData = () => {
     try {
       return JSON.parse(fs.readFileSync(this.internalDataPath).toString());
     } catch (e) {
@@ -35,33 +46,38 @@ class DataFileIO {
     }
   };
 
-  writeJSONToInternalFile = (content: Content) => {
-    const { label, attrName, attrValue } = content;
-    if (label === 'auth') {
-      if (this.attrsWhiteList.includes(attrName)) {
-        // Authorized attributes
-        const readResult = this.readInternalFile();
-        if (readResult === null) {
-          return -1;
-        }
-        readResult.auth[attrName] = attrValue;
-        fs.writeFileSync(
-          this.internalDataPath,
-          JSON.stringify(readResult),
-          'utf-8'
-        );
-        return 0;
-      }
+  readRecordsData = () => {
+    try {
+      const { records } = JSON.parse(
+        fs.readFileSync(this.internalDataPath).toString()
+      );
+      return records;
+    } catch (e) {
+      return null;
     }
-    if (label === 'records') {
-      const readResult = this.readInternalFile();
-      if (readResult === null) {
-        return -1;
-      }
-      readResult.records = attrValue;
+  };
+
+  writeRecordsData = (content: Content) => {
+    const { attrValue } = content;
+    const completeData = this.readCompleteData();
+    completeData.records = attrValue;
+    fs.writeFileSync(
+      this.internalDataPath,
+      JSON.stringify(completeData),
+      'utf-8'
+    );
+    return 0;
+  };
+
+  writeAuthData = (content: Content) => {
+    const { attrName, attrValue } = content;
+    if (this.attrsWhiteList.includes(attrName)) {
+      // Authorized attributes
+      const completeData = this.readCompleteData();
+      completeData.auth[attrName] = attrValue;
       fs.writeFileSync(
         this.internalDataPath,
-        JSON.stringify(readResult),
+        JSON.stringify(completeData),
         'utf-8'
       );
       return 0;
@@ -74,7 +90,7 @@ class DataFileIO {
     // Must remove all data and recreate file;
     fs.writeFileSync(
       this.internalDataPath,
-      '{"auth":{},"records":[]}',
+      '{"auth":{},"records":""}',
       'utf-8'
     );
   };

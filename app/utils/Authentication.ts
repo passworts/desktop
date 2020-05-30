@@ -1,6 +1,10 @@
+import crypto from 'crypto';
 import dataFileIO from './DataFileIO';
 
-const CryptoJS = require('crypto-js');
+type Content = {
+  attrName: any;
+  attrValue: any;
+};
 
 class Authentication {
   private secretKey: string;
@@ -9,10 +13,13 @@ class Authentication {
 
   private internalData: object;
 
+  private iv: string;
+
   constructor() {
     this.secretKey = '';
     this.verified = false;
     this.internalData = {};
+    this.iv = '';
   }
 
   getInternalData = () => {
@@ -33,17 +40,22 @@ class Authentication {
 
   verifyCredential = (username: string, password: string) => {
     const {
-      auth: { usernameHashed, usernameSalt, passwordHashed, passwordSalt }
-    } = dataFileIO.readInternalFile();
+      usernameHashed,
+      usernameSalt,
+      passwordHashed,
+      passwordSalt,
+      iv
+    } = dataFileIO.readAuthData();
     try {
       if (
         this.hash(username + usernameSalt) === usernameHashed &&
         this.hash(password + passwordSalt) === passwordHashed
       ) {
         this.secretKey = this.hash(passwordSalt + password + username);
+        this.iv = iv;
         this.setVerified(true);
         // Decrypt all data in internalData.json
-        this.setInternalData(this.decryptData());
+        this.setInternalData(this.readRecordsData());
         return true;
       }
       return false;
@@ -53,45 +65,33 @@ class Authentication {
     }
   };
 
-  decryptData = () => {
-    if (this.getVerified()) {
-      const result = dataFileIO.readInternalFile();
-      if (result) {
-        // const {
-        //   data: {
-        //     dataType,
-        //     dataMap
-        //   }
-        // } = result;
-        const { records } = result;
-        return records;
-      }
-      // Error
-      return null;
-    }
-    return null;
-  };
-
   hash = (hashingMessage: string) => {
-    return CryptoJS.SHA256(hashingMessage).toString();
+    return crypto
+      .createHash('sha256')
+      .update(hashingMessage)
+      .digest('hex');
   };
 
   decrypt = (encryptedMessage: string) => {
-    try {
-      return CryptoJS.AES.decrypt(encryptedMessage, this.secretKey).toString(
-        CryptoJS.enc.Utf8
-      );
-    } catch (e) {
-      return 'Message unable to be decrypted';
-    }
+    const decipher = crypto.createDecipheriv(
+      'aes-256-ctr',
+      this.secretKey,
+      this.iv
+    );
+    let dec = decipher.update(encryptedMessage, 'hex', 'utf8');
+    dec += decipher.final('utf8');
+    return dec;
   };
 
   encrypt = (plainMessage: string) => {
-    try {
-      return CryptoJS.AES.encrypt(plainMessage, this.secretKey).toString();
-    } catch (e) {
-      return 'Unable to encrypt message';
-    }
+    const cipher = crypto.createCipheriv(
+      'aes-256-ctr',
+      this.secretKey,
+      this.iv
+    );
+    let crypted = cipher.update(plainMessage, 'utf8', 'hex');
+    crypted += cipher.final('hex');
+    return crypted;
   };
 
   createCredential = (username: string, password: string) => {
@@ -99,14 +99,12 @@ class Authentication {
     // Saves username with salt
     const usernameSalt = `usernameSalt${new Date()}`;
     // Writes hashed username
-    dataFileIO.writeJSONToInternalFile({
-      label: 'auth',
+    dataFileIO.writeAuthData({
       attrName: 'usernameHashed',
       attrValue: this.hash(username + usernameSalt)
     });
     // Writes username salt
-    dataFileIO.writeJSONToInternalFile({
-      label: 'auth',
+    dataFileIO.writeAuthData({
       attrName: 'usernameSalt',
       attrValue: usernameSalt
     });
@@ -114,18 +112,41 @@ class Authentication {
     // Creates password salt
     const passwordSalt = `passwordSalt${new Date()}`;
     // Writes hashed password
-    dataFileIO.writeJSONToInternalFile({
-      label: 'auth',
+    dataFileIO.writeAuthData({
       attrName: 'passwordHashed',
       attrValue: this.hash(password + passwordSalt)
     });
     // Writes password salt
-    dataFileIO.writeJSONToInternalFile({
-      label: 'auth',
+    dataFileIO.writeAuthData({
       attrName: 'passwordSalt',
       attrValue: passwordSalt
     });
+
+    dataFileIO.writeAuthData({
+      attrName: 'iv',
+      attrValue: `${new Date()}.-iv`
+    });
     return true;
+  };
+
+  writeRecordsData = (content: Content) => {
+    const { attrName, attrValue } = content;
+    dataFileIO.writeRecordsData({
+      attrName,
+      attrValue: this.encrypt(JSON.stringify(attrValue))
+    });
+  };
+
+  initializeData = () => {
+    dataFileIO.initializeData();
+  };
+
+  readRecordsData = () => {
+    const encryptedRecordsData = dataFileIO.readRecordsData();
+    if (encryptedRecordsData === '') {
+      return [];
+    }
+    return JSON.parse(this.decrypt(encryptedRecordsData));
   };
 }
 

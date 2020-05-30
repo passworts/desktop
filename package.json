@@ -273,7 +273,6 @@
     "@material-ui/icons": "^4.9.1",
     "connected-react-router": "^6.8.0",
     "core-js": "^3.6.5",
-    "crypto-js": "^4.0.0",
     "devtron": "^1.4.0",
     "electron-debug": "^3.0.1",
     "electron-log": "^4.0.6",
