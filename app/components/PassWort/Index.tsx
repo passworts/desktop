@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
-import { List, ListItem, ListItemText, makeStyles } from '@material-ui/core';
+import {
+  List,
+  ListItem,
+  ListItemText,
+  makeStyles,
+  ListItemIcon
+} from '@material-ui/core';
+import InboxIcon from '@material-ui/icons/Inbox';
+import CreditCardIcon from '@material-ui/icons/CreditCard';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import NotesIcon from '@material-ui/icons/Notes';
+import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Record from '../Record/Index';
@@ -65,6 +76,9 @@ export default function PassWort() {
                 setRecordType(Names.ALL);
               }}
             >
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
               <ListItemText primary="All" />
             </ListItem>
             <ListItem
@@ -75,6 +89,9 @@ export default function PassWort() {
                 setRecordType(Names.CREDIT_CARD);
               }}
             >
+              <ListItemIcon>
+                <CreditCardIcon />
+              </ListItemIcon>
               <ListItemText primary="Credit Card" />
             </ListItem>
             <ListItem
@@ -85,6 +102,9 @@ export default function PassWort() {
                 setRecordType(Names.LOGIN_INFO);
               }}
             >
+              <ListItemIcon>
+                <LockOpenIcon />
+              </ListItemIcon>
               <ListItemText primary="Login Info" />
             </ListItem>
             <ListItem
@@ -95,6 +115,9 @@ export default function PassWort() {
                 setRecordType(Names.SECURE_NOTE);
               }}
             >
+              <ListItemIcon>
+                <NotesIcon />
+              </ListItemIcon>
               <ListItemText primary="Secure Note" />
             </ListItem>
             <ListItem
@@ -102,6 +125,9 @@ export default function PassWort() {
               disabled={recordType === Names.ALL}
               onClick={() => addNewRecord()}
             >
+              <ListItemIcon>
+                <AddIcon />
+              </ListItemIcon>
               <ListItemText primary="Add" />
             </ListItem>
           </List>
