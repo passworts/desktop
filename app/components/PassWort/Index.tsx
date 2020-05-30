@@ -70,28 +70,40 @@ export default function PassWort() {
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => setRecordType(Names.ALL)}
+          onClick={() => {
+            setSelectedRecord(null);
+            setRecordType(Names.ALL);
+          }}
         >
           All Records
         </Button>
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => setRecordType(Names.CREDIT_CARD)}
+          onClick={() => {
+            setSelectedRecord(null);
+            setRecordType(Names.CREDIT_CARD);
+          }}
         >
           Credit Card
         </Button>
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => setRecordType(Names.LOGIN_INFO)}
+          onClick={() => {
+            setSelectedRecord(null);
+            setRecordType(Names.LOGIN_INFO);
+          }}
         >
           Login Info
         </Button>
         <Button
           color="primary"
           variant="outlined"
-          onClick={() => setRecordType(Names.SECURE_NOTE)}
+          onClick={() => {
+            setSelectedRecord(null);
+            setRecordType(Names.SECURE_NOTE);
+          }}
         >
           Secure Note
         </Button>
