@@ -66,6 +66,7 @@ export default function PassWort() {
                 setSelectedRecord(null);
                 setRecordType(Names.ALL);
               }}
+              selected={recordType === Names.ALL}
             >
               <TypeIcon type={Names.ALL} />
               <ListItemText primary="All Records" />
@@ -77,6 +78,7 @@ export default function PassWort() {
                 setSelectedRecord(null);
                 setRecordType(Names.CREDIT_CARD);
               }}
+              selected={recordType === Names.CREDIT_CARD}
             >
               <TypeIcon type={Names.CREDIT_CARD} />
               <ListItemText primary="Credit Card" />
@@ -88,6 +90,7 @@ export default function PassWort() {
                 setSelectedRecord(null);
                 setRecordType(Names.LOGIN_INFO);
               }}
+              selected={recordType === Names.LOGIN_INFO}
             >
               <TypeIcon type={Names.LOGIN_INFO} />
               <ListItemText primary="Login Info" />
@@ -99,6 +102,7 @@ export default function PassWort() {
                 setSelectedRecord(null);
                 setRecordType(Names.SECURE_NOTE);
               }}
+              selected={recordType === Names.SECURE_NOTE}
             >
               <TypeIcon type={Names.SECURE_NOTE} />
               <ListItemText primary="Secure Note" />
