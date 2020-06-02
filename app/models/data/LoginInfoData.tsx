@@ -5,7 +5,7 @@ export default class LoginInfoData implements IBaseData {
 
   type = '2';
 
-  name = 'New Record';
+  name = 'New Login Info';
 
   favorite = '';
 
