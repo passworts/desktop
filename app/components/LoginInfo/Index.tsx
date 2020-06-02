@@ -4,17 +4,22 @@ import {
   Input,
   InputAdornment,
   IconButton,
+  InputLabel,
+  FormControl,
   makeStyles
 } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import styles from './LoginInfo.css';
 
 type Props = {
   mode: string;
   dataRepInput: any;
 };
 const useStyles = makeStyles(theme => ({
+  root: {
+    // display: 'flex',
+    // flexWrap: 'wrap',
+  },
   textField: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
@@ -35,7 +40,7 @@ export default function LoginInfo({ dataRepInput, mode }: Props) {
     event.preventDefault();
   };
   return (
-    <div className={styles.container} data-tid="container">
+    <div className={classes.root} data-tid="container">
       <TextField
         label="Name"
         value={name}
@@ -72,27 +77,35 @@ export default function LoginInfo({ dataRepInput, mode }: Props) {
           dataRep.username = event.target.value;
         }}
       />
-      <Input
-        id="standard-adornment-password"
-        type={showPassword ? 'text' : 'password'}
-        defaultValue={dataRep.password}
-        disabled={mode === 'view'}
-        className={classes.textField}
-        onChange={(event: any) => {
-          dataRep.password = event.target.value;
-        }}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-            >
-              {showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
+      <FormControl className={classes.textField}>
+        <InputLabel
+          htmlFor="standard-adornment-password"
+          disabled={mode === 'view'}
+        >
+          Password
+        </InputLabel>
+        <Input
+          id="standard-adornment-password"
+          type={showPassword ? 'text' : 'password'}
+          defaultValue={dataRep.password}
+          disabled={mode === 'view'}
+          onChange={(event: any) => {
+            dataRep.password = event.target.value;
+          }}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                disabled={mode === 'view'}
+              >
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </FormControl>
       <TextField
         label="Url"
         defaultValue={dataRep.url}
