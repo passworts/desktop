@@ -126,7 +126,7 @@ export default function PassWort() {
               })
               .map((r: any) => {
                 const dataRep = r.dataToJsonObject();
-                const { id, type } = dataRep;
+                const { id, type, name } = dataRep;
                 return (
                   <ListItem
                     button
@@ -136,7 +136,7 @@ export default function PassWort() {
                     }}
                   >
                     <TypeIcon type={type} />
-                    <ListItemText primary={id} />
+                    <ListItemText primary={name} />
                   </ListItem>
                 );
               })}

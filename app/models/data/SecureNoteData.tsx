@@ -5,7 +5,7 @@ export default class SecureNoteData implements IBaseData {
 
   type = '4';
 
-  name = '';
+  name = 'New Record';
 
   favorite = '';
 
