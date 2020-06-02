@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { TextField, makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 import styles from './SecureNote.css';
 
 type Props = {

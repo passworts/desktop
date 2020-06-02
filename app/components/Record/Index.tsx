@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import CreditCard from '../CreditCard/Index';
 import styles from './Record.css';
 import Names from '../../constants/names.json';
