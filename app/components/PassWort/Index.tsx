@@ -17,6 +17,7 @@ export default function PassWort() {
   const deleteData = (data: any) => {
     dataService.deleteRecord(data);
     setRecords(dataService.getRecords());
+    setSelectedRecord(null);
   };
   const editData = (data: any) => {
     dataService.editRecord(data);
