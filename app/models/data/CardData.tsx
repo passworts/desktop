@@ -5,7 +5,7 @@ export default class CardData implements IBaseData {
 
   type = '1';
 
-  name = 'New Record';
+  name = 'New Credit Card';
 
   favorite = '';
 
