@@ -57,7 +57,7 @@ export default function PassWort() {
   return (
     <Grid container justify="center" spacing={0}>
       <Grid key={0} item xs={12} sm={4}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={0}>
           <List component="nav" aria-label="main mailbox folders">
             <ListItem
               button
@@ -116,7 +116,7 @@ export default function PassWort() {
         </Paper>
       </Grid>
       <Grid key={1} item xs={12} sm={4}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={0}>
           <List component="nav" aria-label="main mailbox folders">
             {records
               .filter((r: any) => {
@@ -144,7 +144,7 @@ export default function PassWort() {
         </Paper>
       </Grid>
       <Grid key={2} item xs={12} sm={4}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={0}>
           {selectedRecord !== null ? (
             <Record dataRepInput={selectedRecord} operations={operations} />
           ) : (
