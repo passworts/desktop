@@ -50,7 +50,7 @@ export default function SecureNote({ dataRepInput, mode }: Props) {
       />
       <TextField
         id="outlined-multiline-static"
-        label="Multiline"
+        label="Content"
         className={classes.textField}
         multiline
         rows={10}
