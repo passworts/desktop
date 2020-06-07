@@ -4,6 +4,8 @@ import CardDataFactory from '../models/factory/CardDataFactory';
 import LoginInfoDataFactory from '../models/factory/LoginInfoDataFactory';
 import SecureNoteDataFactory from '../models/factory/SecureNoteDataFactory';
 
+import IdentityDataFactory from '../models/factory/IdentityDataFactory';
+
 const shortid = require('shortid');
 
 class DataService implements IDataService {
@@ -47,6 +49,8 @@ class DataService implements IDataService {
         return new CardDataFactory(jobj);
       case '2':
         return new LoginInfoDataFactory(jobj);
+      case '3':
+        return new IdentityDataFactory(jobj);
       case '4':
         return new SecureNoteDataFactory(jobj);
       default:
@@ -77,6 +81,8 @@ class DataService implements IDataService {
         return new CardDataFactory(null).createData();
       case '2':
         return new LoginInfoDataFactory(null).createData();
+      case '3':
+        return new IdentityDataFactory(null).createData();
       case '4':
         return new SecureNoteDataFactory(null).createData();
       default:
