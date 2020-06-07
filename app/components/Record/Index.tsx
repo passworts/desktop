@@ -6,6 +6,7 @@ import Names from '../../constants/names.json';
 import BlankCard from '../BlankCard/Index';
 import LoginInfo from '../LoginInfo/Index';
 import SecureNote from '../SecureNote/Index';
+import Identity from '../Identity/Index';
 
 // type updateFunctionType = (arg0: string) => void;
 type Props = {
@@ -32,6 +33,8 @@ export default function Record({
         return <LoginInfo dataRepInput={dataRep} mode={mode} key={id} />;
       case Names.SECURE_NOTE:
         return <SecureNote dataRepInput={dataRep} mode={mode} key={id} />;
+      case Names.IDENTITY:
+        return <Identity dataRepInput={dataRep} mode={mode} key={id} />;
       default:
         return <BlankCard />;
     }

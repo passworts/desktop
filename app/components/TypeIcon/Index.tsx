@@ -3,6 +3,7 @@ import { ListItemIcon } from '@material-ui/core';
 import AppsIcon from '@material-ui/icons/Apps';
 import CreditCardSharpIcon from '@material-ui/icons/CreditCardSharp';
 import LockOpenSharpIcon from '@material-ui/icons/LockOpenSharp';
+import PermIdentitySharpIcon from '@material-ui/icons/PermIdentitySharp';
 import NotesIcon from '@material-ui/icons/Notes';
 import AddSharpIcon from '@material-ui/icons/AddSharp';
 import Names from '../../constants/names.json';
@@ -24,6 +25,8 @@ export default function TypeIcon({ type }: Props) {
         return <NotesIcon />;
       case Names.ADD_BUTTON:
         return <AddSharpIcon />;
+      case Names.IDENTITY:
+        return <PermIdentitySharpIcon />;
       default:
         return null;
     }

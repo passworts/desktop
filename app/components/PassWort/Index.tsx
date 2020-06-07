@@ -92,6 +92,18 @@ export default function PassWort() {
               key={3}
               onClick={() => {
                 setSelectedRecord(null);
+                setRecordType(Names.IDENTITY);
+              }}
+              selected={recordType === Names.IDENTITY}
+            >
+              <TypeIcon type={Names.IDENTITY} />
+              <ListItemText primary="Identity" />
+            </ListItem>
+            <ListItem
+              button
+              key={4}
+              onClick={() => {
+                setSelectedRecord(null);
                 setRecordType(Names.LOGIN_INFO);
               }}
               selected={recordType === Names.LOGIN_INFO}
@@ -101,7 +113,7 @@ export default function PassWort() {
             </ListItem>
             <ListItem
               button
-              key={4}
+              key={5}
               onClick={() => {
                 setSelectedRecord(null);
                 setRecordType(Names.SECURE_NOTE);
@@ -113,7 +125,7 @@ export default function PassWort() {
             </ListItem>
             <ListItem
               button
-              key={5}
+              key={6}
               disabled={recordType === Names.ALL}
               onClick={() => addNewRecord()}
             >
